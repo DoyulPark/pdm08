@@ -87,45 +87,6 @@ def main():
       st.write(cust_plot)
       st.pyplot()
 
-  # Correlation Plot
-  st.subheader("- Correlation Plot")
-  if st.checkbox("Correlation plot"):
-    st.subheader("Heatmap")
-    st.set_option('deprecation.showPyplotGlobalUse', False)
-    st.write(sns.heatmap(df.corr(),annot=True, cmap= "coolwarm", vmin=-1, vmax=1))
-    st.pyplot()
-
-    #Customizable correlation plot
-    st.subheader('Heatmap of selected parameters')
-    fig5 = plt.figure(figsize=(5,4))
-    hmap_params = st.multiselect("Select parameters to include on heatmap", options=list(df.columns), default=[p for p in df.columns if "Outcome" not in p])
-    sns.heatmap(df[hmap_params].corr(), annot=True, vmin=-1, vmax=1, cmap='coolwarm')
-    st.pyplot(fig5)
-    
-    st.markdown('- The Result of the correlation analysis \n'
-    '  * Age vs Pregnancies : 0.54\n'
-    '  * SkinThickness vs Insulin : 0.44\n'
-    '  * SkinThickness vs BMI : 0.39')
-
-    st.subheader("- Scatter Plot")
-    if st.checkbox("Highest Correlation Plot(6)"):
-      st.markdown('- The scatter plot of the Top6 feature')
-      st.set_option('deprecation.showPyplotGlobalUse', False)
-      high_corr = ['Pregnancies', 'Glucose', 'SkinThickness', 'Insulin', 'BMI','Age', 'Outcome']
-      df_temp = df.copy()
-      df_temp['Outcome'] = df_temp['Outcome'].replace([0, 1],['noDM', 'DM'])
-      st.write(sns.pairplot(df_temp[high_corr], hue='Outcome'))
-      st.pyplot()
-      st.dataframe(df_temp['Outcome'].value_counts())
-
-    if st.checkbox("Highest Correlation Plot(3)"):
-      st.markdown('- The scatter plot of the Top3 feature ')
-      st.set_option('deprecation.showPyplotGlobalUse', False)
-      highest_corr = ['Pregnancies', 'Age', 'Outcome']
-      df_temp = df.copy()
-      df_temp['Outcome'] = df_temp['Outcome'].replace([0, 1],['noDM', 'DM'])
-      st.write(sns.pairplot(df_temp[highest_corr], hue='Outcome'))
-      st.pyplot()
 
   
   st.write('***')
